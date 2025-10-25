@@ -1,0 +1,37 @@
+<div class="container spacer">
+    <div class="panel panel-default">
+        <div class="panel-heading">Saisir nouveau patient</div>
+        <div class="panel-body">
+            <form >
+                <div class="form-group">
+                    <label class="control-label">Nom</label>
+                    <input class="form-control" type="text" ng-model="patient.nom">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Date naissance</label>
+                    <input class="form-control" type="date" ng-model="patient.dateNaissance">
+                </div>
+                <div class="form-group">
+                    <label class="form-label d-block mb-2">Malade:</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" id="oui"  type="radio" value="true" ng-model="patient.malade">
+                        <label > oui</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" id="non"  type="radio" value="false" ng-model="patient.malade">
+                        <label > non</label>
+                    </div>
+                    
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Score</label>
+                    <input class="form-control" type="number" ng-model="patient.score ">
+                </div>
+                <div>
+                    <button ng-click="savePatient()" class="btn btn-primary">Sauvegarder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</div>
