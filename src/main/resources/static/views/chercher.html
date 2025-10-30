@@ -1,8 +1,11 @@
 <div class="container spacer">
-        <label >Mot Cle</label>
-        <input type="text" ng-model="motCle">
-    <button ng-click="chercherPatient()">charger</button>
+    <div class="form-inline">
+        <label class="form-label">Chercher: </label>
+        <input type="text" class="form-control" ng-model="motCle">
+        <button class="btn btn-primary" placeholder="Entrez un mot clé" ng-click="searchByName()"><i class="bi bi-search"></i></button>
     </div>
+        
+</div>
     <div class="container">
         <table class="table">
             <thead>
@@ -22,7 +25,7 @@
     <div class="container">
         <ul class="nav nav-pills">
             <li  ng-class="{active:currentPage==$index}" ng-repeat="p in pages track by $index" class="clickable">
-                <a ng-click="goToPage($index)">{{$index}}</a>
+                <a ng-click="goToPage($index)">{{$index+1}}</a>
             </li>
         </ul>
     </div>

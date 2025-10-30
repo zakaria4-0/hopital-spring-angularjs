@@ -18,9 +18,9 @@ public class PatientServiceImpl implements PatientServcie {
     private final PatientRepository patientRepository;
     private final PatientMapper patientMapper;
     @Override
-    public PatientArchiveDto getAllPatients(int page, int size) {
-        List<Patient> allPatients = patientRepository.findAll();
-        Page<Patient> patients = patientRepository.findAll(PageRequest.of(page, size));
+    public PatientArchiveDto getAllPatients(String keyWord,int page, int size) {
+        List<Patient> allPatients = patientRepository.findPatientByNomContains(keyWord);
+        Page<Patient> patients = patientRepository.findPatientByNomContains(keyWord,PageRequest.of(page, size));
         List<PatientDto> patientDtos = patients.getContent().stream().map(patientMapper::patientsToPatientsDtos).toList();
         PatientArchiveDto patientArchiveDto = new PatientArchiveDto();
         patientArchiveDto.setPatientDtos(patientDtos);

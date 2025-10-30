@@ -20,11 +20,12 @@ public class PatientController {
 
     @RequestMapping(value = "/patients", method = RequestMethod.GET)
     public PatientArchiveDto patientList(
+            @RequestParam(name = "keyWord") String keyWord,
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "5") int size
     ){
 
-        return patientServcie.getAllPatients(page, size);
+        return patientServcie.getAllPatients(keyWord,page, size);
     }
 
 

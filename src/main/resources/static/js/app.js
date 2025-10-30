@@ -24,7 +24,7 @@ app.controller('HomeController', function(){
 app.controller('NewPatientController', function($scope, $http){
     $scope.patient={};
     $scope.savePatient=function(){
-        $http.post("http://localhost:8080/newPatient",$scope.patient)
+        $http.post("/newPatient",$scope.patient)
         .then(function(data){
             alert("le patient est enregistre avec succes")
         })
@@ -40,7 +40,8 @@ app.controller("MyController", function($scope, $http){
     $scope.currentPage=0;
     $scope.size=4
     $scope.pages=[]
-     $http.get("http://localhost:8080/patients?page="+$scope.currentPage+"&size="+$scope.size)
+    $scope.searchByName=function(){
+        $http.get("/patients?keyWord="+$scope.motCle+"&page="+$scope.currentPage+"&size="+$scope.size)
     .then(function(data){
         console.log("data received: ",data)
         $scope.pagePatients=data.data.patientDtos
@@ -49,30 +50,11 @@ app.controller("MyController", function($scope, $http){
     .catch(function(err){
         console.log(err)
     })
-    $scope.searchAll=function(){
-        $http.get("http://localhost:8080/patients?page="+$scope.currentPage+"&size="+$scope.size)
-    .then(function(data){
-        console.log("data received: ",data)
-        $scope.pagePatients=data.data.patientDtos
-        $scope.pages=new Array(data.data.totalPages)
-    })
-    .catch(function(err){
-        console.log(err)
-    })
-    }
+    };
+    $scope.searchByName();
     $scope.goToPage=function(p){
         $scope.currentPage=p;
-        $scope.searchAll()
-    }
-    $scope.chercherPatient=function(){
-        $http.get("http://localhost:8080/patientsByName/"+$scope.motCle)
-    .then(function(data){
-        console.log("data received: ",data)
-        $scope.pagePatients=data.data
-    })
-    .catch(function(err){
-        console.log(err)
-    })
-    }
+        $scope.searchByName()
+    };
     
 });

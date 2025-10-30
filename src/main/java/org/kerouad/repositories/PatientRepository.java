@@ -12,6 +12,7 @@ import java.util.List;
 
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long> {
+    Page<Patient> findPatientByNomContains(String keyWord, Pageable pageable);
     List<Patient> findPatientByNomContains(String keyWord);
 
 
