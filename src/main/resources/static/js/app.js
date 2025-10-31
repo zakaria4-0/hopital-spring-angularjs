@@ -56,5 +56,22 @@ app.controller("MyController", function($scope, $http){
         $scope.currentPage=p;
         $scope.searchByName()
     };
+
+    $scope.exporterExcel=function(){
+        $http.post("/exportExcel",$scope.pagePatients, {responseType: 'arraybuffer'})
+        .then(function(response){
+            var blob = new Blob([response.data], {
+                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            });
+
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'patients.xlsx';
+            link.click();
+        },
+    function(error){
+        console.log('Error exporting Excel:', error);
+    });
+    };
     
 });

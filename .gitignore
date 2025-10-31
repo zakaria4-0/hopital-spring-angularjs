@@ -4,13 +4,7 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/workspace.xml
-.idea/vcs.xml
-.idea/libraries/
-.idea/inspectionProfiles
+/.idea/
 *.iws
 *.iml
 *.ipr
@@ -36,6 +30,7 @@ build/
 
 ### VS Code ###
 .vscode/
+/src/main/resources/static/node_modules
 
 ### Mac OS ###
 .DS_Store

@@ -1,6 +1,11 @@
 package org.kerouad.service.impl;
 
 import lombok.AllArgsConstructor;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.kerouad.dto.PatientArchiveDto;
 import org.kerouad.dto.PatientDto;
 import org.kerouad.entities.Patient;
@@ -11,6 +16,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 @Service @AllArgsConstructor
@@ -32,5 +40,37 @@ public class PatientServiceImpl implements PatientServcie {
             patientArchiveDto.setTotalPages(allPatients.size() / size);
         }
         return patientArchiveDto;
+    }
+
+    @Override
+    public ByteArrayInputStream exportToExcel(List<PatientDto> patientDtos) throws IOException {
+        String[] columns = {"Id", "Nom", "DateNaissance", "Malade", "Score"};
+
+        Workbook workbook = new XSSFWorkbook();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        Sheet sheet = workbook.createSheet();
+        try {
+
+            Row headerRow = sheet.createRow(0);
+            for (int i = 0; i<columns.length; i++){
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(columns[i]);
+            }
+
+            int rowIdx = 1;
+            for (PatientDto p : patientDtos){
+                Row row = sheet.createRow(rowIdx++);
+                row.createCell(0).setCellValue(p.getId());
+                row.createCell(1).setCellValue(p.getNom());
+                row.createCell(2).setCellValue(p.getDateNaissance());
+                row.createCell(3).setCellValue(p.getMalade());
+                row.createCell(4).setCellValue(p.getScore());
+            }
+
+            workbook.write(out);
+        }catch (Exception e){
+            throw new IOException();
+        }
+        return new ByteArrayInputStream(out.toByteArray());
     }
 }

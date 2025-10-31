@@ -1,8 +1,8 @@
 <div class="container spacer">
     <div class="form-inline">
         <label class="form-label">Chercher: </label>
-        <input type="text" class="form-control" ng-model="motCle">
-        <button class="btn btn-primary" placeholder="Entrez un mot clé" ng-click="searchByName()"><i class="bi bi-search"></i></button>
+        <input type="text" class="form-control" placeholder="Entrez un mot clé" ng-model="motCle">
+        <button class="btn btn-primary"  ng-click="searchByName()"><i class="bi bi-search"></i></button>
     </div>
         
 </div>
@@ -28,4 +28,7 @@
                 <a ng-click="goToPage($index)">{{$index+1}}</a>
             </li>
         </ul>
+        <div class="text-right mt-3">
+               <button class="btn btn-primary" ng-click="exporterExcel()">Exporter en excel</button>
+        </div>
     </div>

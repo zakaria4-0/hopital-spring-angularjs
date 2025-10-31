@@ -2,14 +2,21 @@ package org.kerouad.web;
 
 import lombok.AllArgsConstructor;
 import org.kerouad.dto.PatientArchiveDto;
+import org.kerouad.dto.PatientDto;
 import org.kerouad.entities.Patient;
 import org.kerouad.repositories.PatientRepository;
 import org.kerouad.service.PatientServcie;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -37,5 +44,19 @@ public class PatientController {
     @RequestMapping(value = "/newPatient", method = RequestMethod.POST)
     public Patient newPatient(@RequestBody Patient patient){
         return patientRepository.save(patient);
+    }
+
+    @RequestMapping(value = "/exportExcel", method = RequestMethod.POST)
+    public ResponseEntity<InputStreamResource> exportExcel(@RequestBody List<PatientDto> patientDtos) throws IOException {
+
+        ByteArrayInputStream in = patientServcie.exportToExcel(patientDtos);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=patients.xlsx");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+                .body(new InputStreamResource(in));
+
     }
 }
