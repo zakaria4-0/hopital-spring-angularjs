@@ -59,4 +59,15 @@ public class PatientController {
                 .body(new InputStreamResource(in));
 
     }
+
+    @RequestMapping(value = "/exportPDF", method = RequestMethod.POST)
+    public ResponseEntity<byte[]> exportPdf(@RequestBody List<PatientDto> persons) throws Exception {
+
+        byte[] pdfBytes = patientServcie.exportToPdf(persons);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=patients.pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdfBytes);
+    }
 }

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="patients_report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b11b35ee-77b1-4d9e-a7f0-4e60e3a67f98">
+    <field name="id" class="java.lang.Long"/>
+    <field name="nom" class="java.lang.String"/>
+    <field name="dateNaissance" class="java.lang.String"/>
+    <field name="malade" class="java.lang.Boolean"/>
+    <field name="score" class="java.lang.Integer"/>
+    <title>
+        <band height="50">
+            <staticText>
+                <reportElement x="0" y="10" width="555" height="30" uuid="9862cf83-aed5-471d-bca2-6b044642f08b"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="16" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Liste des Patients]]></text>
+            </staticText>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="20">
+            <staticText>
+                <reportElement x="0" y="0" width="50" height="20" uuid="d576cf3b-7a40-4c7d-ae10-af2c136e1980"/>
+                <text><![CDATA[Id]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="60" y="0" width="100" height="20" uuid="85554c11-0428-4944-919d-e4cc1c8e739b"/>
+                <text><![CDATA[Nom]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="170" y="0" width="100" height="20" uuid="49127fa2-06bb-4adb-8490-54a49e8d3f57"/>
+                <text><![CDATA[Date Naissance]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="280" y="0" width="100" height="20" uuid="f48e4eb6-6a0c-4d1b-9c5b-ae8074f6e28d"/>
+                <text><![CDATA[Malade]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="390" y="0" width="100" height="20" uuid="10c09a86-8ed0-42a0-b0e3-ad4a37b74c19"/>
+                <text><![CDATA[Score]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="20">
+            <textField>
+                <reportElement x="0" y="0" width="50" height="20" uuid="1578dc01-a121-48a4-871f-d0da5888b9d7"/>
+                <textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="60" y="0" width="100" height="20" uuid="3bddf65e-5eee-41f0-bf5c-cd5987893d59"/>
+                <textFieldExpression><![CDATA[$F{nom}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="170" y="0" width="100" height="20" uuid="fb57581d-d2d7-4910-911b-321ecb98e084"/>
+                <textFieldExpression><![CDATA[$F{dateNaissance}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="280" y="0" width="100" height="20" uuid="29692538-c23f-4f4a-b501-8099cfcffa60"/>
+                <textFieldExpression><![CDATA[$F{malade}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="390" y="0" width="100" height="20" uuid="a84380bf-894a-4dad-ac57-d2341287503d"/>
+                <textFieldExpression><![CDATA[$F{score}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>

@@ -10,4 +10,5 @@ import java.util.List;
 public interface PatientServcie {
     PatientArchiveDto getAllPatients(String keyWord, int page, int size);
     ByteArrayInputStream exportToExcel(List<PatientDto> patientDtos) throws IOException;
+    byte[] exportToPdf(List<PatientDto> patientDtos) throws Exception;
 }

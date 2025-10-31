@@ -2,14 +2,14 @@
     <div class="panel panel-default">
         <div class="panel-heading">Saisir nouveau patient</div>
         <div class="panel-body">
-            <form >
+            <form name="patientForm" ng-submit="savePatient()">
                 <div class="form-group">
                     <label class="control-label">Nom</label>
-                    <input class="form-control" type="text" ng-model="patient.nom">
+                    <input class="form-control" type="text" ng-model="patient.nom" placeholder="le nom du patient" required>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Date naissance</label>
-                    <input class="form-control" type="date" ng-model="patient.dateNaissance">
+                    <input class="form-control" type="date" ng-model="patient.dateNaissance" required>
                 </div>
                 <div class="form-group">
                     <label class="form-label d-block mb-2">Malade:</label><br>
@@ -25,10 +25,10 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label">Score</label>
-                    <input class="form-control" type="number" ng-model="patient.score ">
+                    <input class="form-control" type="number" ng-model="patient.score" required>
                 </div>
                 <div>
-                    <button ng-click="savePatient()" class="btn btn-primary">Sauvegarder</button>
+                    <button type="submit" class="btn btn-primary">Sauvegarder</button>
                 </div>
             </form>
         </div>

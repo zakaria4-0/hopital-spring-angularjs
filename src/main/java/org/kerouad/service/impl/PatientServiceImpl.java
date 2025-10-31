@@ -1,6 +1,8 @@
 package org.kerouad.service.impl;
 
 import lombok.AllArgsConstructor;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -12,6 +14,7 @@ import org.kerouad.entities.Patient;
 import org.kerouad.mapper.PatientMapper;
 import org.kerouad.repositories.PatientRepository;
 import org.kerouad.service.PatientServcie;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -19,7 +22,9 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service @AllArgsConstructor
 public class PatientServiceImpl implements PatientServcie {
@@ -72,5 +77,26 @@ public class PatientServiceImpl implements PatientServcie {
             throw new IOException();
         }
         return new ByteArrayInputStream(out.toByteArray());
+    }
+
+    @Override
+    public byte[] exportToPdf(List<PatientDto> patientDtos) throws Exception {
+        var reportResource = new ClassPathResource("reports/patientsList.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(reportResource.getInputStream());
+
+        // Data source
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(patientDtos);
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("createdBy", "Hospital System");
+
+        // Fill the report
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export to PDF
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+
+        return outputStream.toByteArray();
     }
 }

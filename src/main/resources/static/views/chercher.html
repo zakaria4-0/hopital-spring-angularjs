@@ -29,6 +29,21 @@
             </li>
         </ul>
         <div class="text-right mt-3">
-               <button class="btn btn-primary" ng-click="exporterExcel()">Exporter en excel</button>
+         <div class="form-inline">
+            <div class="form-group">
+                <label for="exportType">Type d'export :</label>
+                <select id="exportType"
+                        class="form-control input-sm"
+                        ng-model="exportType">
+                <option value="1">PDF</option>
+                <option value="2">Excel</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary btn-sm" ng-disabled="exportType == 0" ng-click="exportType==1?exporterPDF():exporterExcel()">
+                Exporter
+            </button>
+         </div>
+
         </div>
     </div>

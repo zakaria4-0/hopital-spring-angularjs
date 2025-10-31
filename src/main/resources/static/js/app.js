@@ -40,6 +40,7 @@ app.controller("MyController", function($scope, $http){
     $scope.currentPage=0;
     $scope.size=4
     $scope.pages=[]
+    $scope.exportType=0
     $scope.searchByName=function(){
         $http.get("/patients?keyWord="+$scope.motCle+"&page="+$scope.currentPage+"&size="+$scope.size)
     .then(function(data){
@@ -58,6 +59,7 @@ app.controller("MyController", function($scope, $http){
     };
 
     $scope.exporterExcel=function(){
+        console.log("export type: "+$scope.exportType)
         $http.post("/exportExcel",$scope.pagePatients, {responseType: 'arraybuffer'})
         .then(function(response){
             var blob = new Blob([response.data], {
@@ -67,6 +69,24 @@ app.controller("MyController", function($scope, $http){
             var link = document.createElement('a');
             link.href = window.URL.createObjectURL(blob);
             link.download = 'patients.xlsx';
+            link.click();
+        },
+    function(error){
+        console.log('Error exporting Excel:', error);
+    });
+    };
+
+    $scope.exporterPDF=function(){
+        console.log("export type: "+$scope.exportType)
+        $http.post("/exportPDF",$scope.pagePatients, {responseType: 'arraybuffer'})
+        .then(function(response){
+            var blob = new Blob([response.data], {
+                type: 'application/pdf'
+            });
+
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'patients.pdf';
             link.click();
         },
     function(error){
